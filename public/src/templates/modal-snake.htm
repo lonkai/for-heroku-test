@@ -1,31 +1,41 @@
 <div style="overflow:hidden">
-    <h1 class="foot">ZMEIKA</h1>
-    <div class="container-fluid">
-        <form>
-            <div class="form-group">
-                <label for="inputName">Enter your nickname:</label>
-                <input type="text" class="form-control" name="inputName" cols="10" rows="1" ng-model="Snake.name" style="width: auto" readonly> <span style="color: red" ng-show="Snake.name === ''">invalid(ти або твій нік)</span> </div>
-        </form>
-    </div>
-    <table class="table table-hover table-condensed table-bordered">
-        <thead>
-            <tr class="bg-primary">
-                <th class="col-xs-1 text-center"> Nickname </th>
-                <th class="col-xs-1 text-center"> Score </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr class="bg-warning" ng-repeat="result in Snake.snakeRes">
-                <td>{{result.name}}</td>
-                <td>{{result.scores}}</td>
-            </tr>
-        </tbody>
-    </table>
-    <h3>Score: {{Snake.score}}</h3>
-    <div>
-        <div class="row1" ng-repeat="column in Snake.board">
-            <div class="column" ng-style="{'background-color': Snake.setStyling($parent.$index, $index)}" ng-repeat="row in column track by $index"> </div>
+<h1 class="foot">ZMEIKA</h1>
+<div class="container-fluid">
+    <form>
+        <div class="form-group">
+            <label for="inputName">Enter your nickname:</label>
+            <input type="text" class="form-control" name="inputName" cols="10" rows="1" ng-model="Snake.name"
+                   style="width: auto">
+            <span style="color: red" ng-show="Snake.name === ''">invalid(ти або твій нік)</span>
+        </div>
+    </form>
+</div>
+<table class="table table-hover table-condensed table-bordered">
+    <thead>
+    <tr class="bg-primary">
+        <th class="col-xs-1 text-center">
+            Nickname
+        </th>
+        <th class="col-xs-1 text-center">
+            Score
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="bg-warning" ng-repeat="result in Snake.snakeRes">
+        <td>{{result.name}}</td>
+        <td>{{result.scores}}</td>
+    </tr>
+    </tbody>
+</table>
+<h3>Score: {{Snake.score}}</h3>
+<div>
+    <div class="row1" ng-repeat="column in Snake.board">
+        <div class="column"
+             ng-style="{'background-color': Snake.setStyling($parent.$index, $index)}"
+             ng-repeat="row in column track by $index">
         </div>
     </div>
-    <button class="btn btn-primary centerbtn" ng-click="Snake.startGame()" ng-disabled="Snake.name === ''">Start Game</button>
+</div>
+<button class="btn btn-primary centerbtn" ng-click="Snake.startGame()" ng-disabled="Snake.name === ''">Start Game</button>
 </div>

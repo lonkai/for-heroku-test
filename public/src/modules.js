@@ -4,7 +4,6 @@
     angular.module('issueTrackerApp', [
         // directives
         'issueTrackerApp.nav-menu',
-        'issueTrackerApp.sign-in',
 
         // services
         'issueTrackerApp.issues-service',

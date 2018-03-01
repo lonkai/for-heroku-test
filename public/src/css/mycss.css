@@ -19,7 +19,6 @@
 .text {
     color: #ccbdbd;
 }
-
 .foot {
     color: rgb(157, 157, 157);
     text-align: center;
@@ -37,17 +36,9 @@
     padding: 30px;
 }
 
-body {
+body{
     background-image: url(http://cloudberrystudio.ru/ff/1/tekstury_fon_kreativ_raznye_cveta_1920x1200.jpg);
     background-size: cover;
-}
-
-.login {
-    padding-top: 40px;
-    padding-bottom: 40px;
-    background-color: #eee;
-    width: 100vw;
-    height: 100vh
 }
 
 @media (max-width: 768px) {
@@ -59,12 +50,12 @@ body {
     }
 }
 
-<!-- snake --> * {
+<!-- snake -->
+* {
     font-family: "Lucida Grande";
 }
 
-#gameContainer,
-#pastScores {
+#gameContainer, #pastScores {
     width: 600px;
     background-color: white;
 }
