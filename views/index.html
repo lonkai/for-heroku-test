@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="issueTrackerApp">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SuperMegaIssueTracker</title>
+    <link href="./src/css/reset.css" rel="stylesheet">
+    <link href="./src/css/bootstrap.css" rel="stylesheet">
+    <link href="./src/css/style.css" rel="stylesheet">
+    <link href="./src/css/mycss.css" rel="stylesheet">
+    <link href="./src/css/signin.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="./lib/html5shiv.js"></script>
+    <script src="./lib/respond.js"></script>
+    <![endif]-->
+    <script src="./lib/angular.js"></script>
+</head>
+
+<body>
+    <div ng-controller="IssueTrackerCtrl as iss_ctrl" ng-cloak>
+        <div>
+            <header></header>
+            <article></article>
+            <section></section>
+            <div class="mywrapper">
+                <div class="container-fluid">
+                    <div id="content" class="row">
+                        <nav-menu></nav-menu>
+                        <div class="col-sm-12 col-md-12 col-xs-12 main-content">
+                            <br>
+                            <div class="alert alert-warning alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>                                Hi Guest! Check my application. You can leave feedback by creating an issue. Don't forget
+                                to save it. Also you can rate my Issue Tracker using the help tab. </div>
+                            <h1 class="title">AngularJS Issue Tracker</h1>
+                            <h4 class="text" ng-if="iss_ctrl.remain()">Remaining: {{iss_ctrl.remain()}} opened issues from {{iss_ctrl.issueList.length}}
+                            </h4>
+                            <div class="table">
+                                <table class="table table-hover table-condensed table-bordered">
+                                    <thead>
+                                        <tr class="bg-warning">
+                                            <th class="table-first-col col-lg-1 col-md-1 col-sm-1 col-xs-1 text-center thlink" ng-click="iss_ctrl.sortType = 'id'; iss_ctrl.sortReverse = !iss_ctrl.sortReverse">
+                                                ID <span ng-show="iss_ctrl.sortType == 'id' && !iss_ctrl.sortReverse" class="glyphicon glyphicon-sort-by-order"></span>                                                <span ng-show="iss_ctrl.sortType == 'id' && iss_ctrl.sortReverse" class="glyphicon glyphicon-sort-by-order-alt"></span>                                                </th>
+                                            <th class="col-lg-1 col-md-1 hidden-sm hidden-xs text-center thlink" ng-click="iss_ctrl.sortType = 'status.name'; iss_ctrl.sortReverse = !iss_ctrl.sortReverse">
+                                                STATUS
+                                                <span ng-show="iss_ctrl.sortType == 'status.name' && !iss_ctrl.sortReverse" class="glyphicon glyphicon-sort-by-alphabet"></span>
+                                                <span ng-show="iss_ctrl.sortType == 'status.name' && iss_ctrl.sortReverse" class="glyphicon glyphicon-sort-by-alphabet-alt"></span>
+                                            </th>
+                                            <th class="col-lg-7 col-md-7 col-sm-3 col-xs-3 text-center thlink" ng-click="iss_ctrl.sortType = 'summary'; iss_ctrl.sortReverse = !iss_ctrl.sortReverse">
+                                                ISSUE
+                                                <span ng-show="iss_ctrl.sortType == 'summary' && !iss_ctrl.sortReverse" class="glyphicon glyphicon-sort-by-alphabet"></span>
+                                                <span ng-show="iss_ctrl.sortType == 'summary' && iss_ctrl.sortReverse" class="glyphicon glyphicon-sort-by-alphabet-alt"></span>
+                                            </th>
+                                            <th class="col-lg-1 col-md-1 hidden-sm hidden-xs text-center thlink" ng-click="iss_ctrl.sortType = 'priority.name'; iss_ctrl.sortReverse = !iss_ctrl.sortReverse">
+                                                PRIORITY
+                                                <span ng-show="iss_ctrl.sortType == 'priority.name' && !iss_ctrl.sortReverse" class="glyphicon glyphicon-sort-by-alphabet"></span>
+                                                <span ng-show="iss_ctrl.sortType == 'priority.name' && iss_ctrl.sortReverse" class="glyphicon glyphicon-sort-by-alphabet-alt"></span>
+                                            </th>
+                                            <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-center thlink" ng-click="iss_ctrl.sortType = 'lastupdated'; iss_ctrl.sortReverse = !iss_ctrl.sortReverse">
+                                                LAST UPDATED
+                                                <span ng-show="iss_ctrl.sortType == 'lastupdated' && !iss_ctrl.sortReverse" class="glyphicon glyphicon-sort-by-order"></span>
+                                                <span ng-show="iss_ctrl.sortType == 'lastupdated' && iss_ctrl.sortReverse" class="glyphicon glyphicon-sort-by-order-alt"></span>
+                                            </th>
+                                            <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-center thlink" ng-click="iss_ctrl.sortType = 'assignedto'; iss_ctrl.sortReverse = !iss_ctrl.sortReverse">
+                                                ASSIGNED TO
+                                                <span ng-show="iss_ctrl.sortType == 'assignedto' && !iss_ctrl.sortReverse" class="glyphicon glyphicon-sort-by-alphabet"></span>
+                                                <span ng-show="iss_ctrl.sortType == 'assignedto' && iss_ctrl.sortReverse" class="glyphicon glyphicon-sort-by-alphabet-alt"></span>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="{{iss_ctrl.setClass(issue.status)}}" ng-repeat="issue in iss_ctrl.issueList | orderBy: iss_ctrl.sortType:iss_ctrl.sortReverse | filter: iss_ctrl.searchQuery ">
+                                            <td class="text-center table-first-col col-lg-1 col-md-1 col-sm-1 col-xs-1">{{issue.id}}
+                                                <div class="btn-group dropup" uib-dropdown>
+                                                    <button type="button" class="btn btn-default btn-xs pull-right
+                                " uib-dropdown-toggle> <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> </button>
+                                                        <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="btn-append-to-single-button">
+                                                            <li role="menuitem"><a href="" ng-click="iss_ctrl.addIssue()">create</a></li>
+                                                            <li role="menuitem"><a href="" ng-click="iss_ctrl.editIssue(issue, $index)">edit</a>
+                                                                <li role="menuitem"><a href="" ng-click="iss_ctrl.deleteIssue($index)">delete</a>                                                                    </li>
+                                                        </ul>
+                                                </div>
+                                            </td>
+                                            <td class="col-lg-1 col-md-1 hidden-sm hidden-xs">
+                                                <select class="form-control input-sm span" ng-model="issue.status" ng-change="iss_ctrl.dialog(issue.status, $index)" ng-options="status.name for status in iss_ctrl.stasuses track by status.name"> </select>
+                                            </td>
+                                            <td class="col-lg-7 col-md-7 col-sm-7 col-xs-7">{{issue.summary}}
+                                                <br>
+                                                <button type="button" ng-click="iscollapsed = !iscollapsed" class="bg-{{iss_ctrl.setClass(issue.status)}} btn btn-sm
+                                dropdown-toggle" data-toggle="dropdown"> <span ng-show="iscollapsed" class="glyphicon glyphicon-triangle-bottom"></span>                                                    <span ng-show="!iscollapsed" class="glyphicon glyphicon-triangle-top"></span>                                                    </button>
+                                                    <div uib-collapse="!iscollapsed">
+                                                        <hr>
+                                                        <label for="desc">Description:</label>
+                                                        <div id="desc"> {{issue.description}} </div>
+                                                        <hr>
+                                                        <label for="comment">Comments:</label>
+                                                        <div id="comment" class="panel panel-default" ng-repeat="comment in iss_ctrl.comments | filter: {issue_id: issue.id}"> {{comment.owner}} added a comment :
+                                                            <div class="panel panel-body" style="margin: 0"> {{comment.content}} </div>
+                                                            <button ng-hide="issue.status.id==3" type="button" class="btn btn-danger btn-xs pull-right" ng-click="iss_ctrl.deleteComment(comment.id)"> <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> </button>
+                                                        </div>
+                                                        <button ng-hide="issue.status.id==3" type="button" class="btn btn-default btn-sm" ng-click="iss_ctrl.addComment(issue.id)">add new </button>                                                        <span ng-show="issue.status.id==3" class="glyphicon glyphicon-lock"></span>                                                        </div>
+                                            </td>
+                                            <td class="col-lg-1 col-md-1 hidden-sm hidden-xs">
+                                                <select class="form-control input-sm" ng-model="issue.priority" ng-change="iss_ctrl.dialog(issue.priority, $index)" ng-options="priority.name for priority in iss_ctrl.priorities track by priority.name"> </select>
+                                            </td>
+                                            <td class="text-center col-lg-1 col-md-1 col-sm-1 col-xs-1">{{issue.lastupdated}}</td>
+                                            <td class="text-center col-lg-1 col-md-1 col-sm-1 col-xs-1">{{issue.assignedto}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer class="navbar navbar-inverse navbar-fixed-bottom navbar-my">
+                <div class="foot">
+                    <h5>&copy; Lonkai 2016. All Rights Reserved.</h5>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <!--<script src="./lib/index.js"></script>-->
+    <script src="./lib/jquery.js"></script>
+    <script src="./lib/bootstrap.js"></script>
+    <script src="./lib/ui-bootstrap-tpls.js"></script>
+    <script src="./src/modules.js"></script>
+    <script src="./lib/underscore.js"></script>
+    <script src="./src/scripts/home/nav-menu.module.js"></script>
+    <script src="./src/scripts/home/nav-menu.directive.js"></script>
+    <script src="./src/scripts/home/sign-in.module.js"></script>
+    <script src="./src/scripts/home/sign-in.directive.js"></script>
+    <script src="./src/scripts/home/issues.module.js"></script>
+    <script src="./src/scripts/home/issues.service.js"></script>
+    <script src="./src/scripts/home/issues-add.module.js"></script>
+    <script src="./src/scripts/home/issues-add.service.js"></script>
+    <script src="./src/scripts/home/issues-edit.module.js"></script>
+    <script src="./src/scripts/home/issues-edit.service.js"></script>
+    <script src="./src/scripts/home/comments-add.module.js"></script>
+    <script src="./src/scripts/home/comments-add.service.js"></script>
+    <script src="./src/scripts/home/help.service.js"></script>
+    <script src="./src/scripts/home/settings.service.js"></script>
+    <script src="./src/scripts/home/dialog.service.js"></script>
+    <script src="./src/scripts/home/snake.service.js"></script>
+    <script src="./src/scripts/issue-tracker.controller.js"></script>
+    <script src="./src/scripts/modal-help.controller.js"></script>
+    <script src="./src/scripts/modal-settings.controller.js"></script>
+    <script src="./src/scripts/modal-dialog.controller.js"></script>
+    <script src="./src/scripts/modal-add.controller.js"></script>
+    <script src="./src/scripts/modal-edit.controller.js"></script>
+    <script src="./src/scripts/modal-comment-add.controller.js"></script>
+    <script src="./src/scripts/modal-snake.controller.js"></script>
+</body>
+
+</html>

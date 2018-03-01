@@ -1,0 +1,105 @@
+.thlink {
+    cursor: pointer;
+}
+
+.th1 {
+    background-color: #e8e8e8;
+    text-shadow: 1px 0 #fff;
+}
+
+.mytable {
+    border-radius: 4px;
+    border: 2px solid #ccc;
+}
+
+.mywrapper {
+    margin-bottom: 2%;
+}
+
+.text {
+    color: #ccbdbd;
+}
+
+.foot {
+    color: rgb(157, 157, 157);
+    text-align: center;
+}
+
+.navbar-my {
+    position: fixed;
+    border-radius: 5px;
+    background-color: rgb(12, 12, 12);
+    min-height: 0px;
+}
+
+.title {
+    color: #caa0a0;
+    padding: 30px;
+}
+
+body {
+    background-image: url(http://cloudberrystudio.ru/ff/1/tekstury_fon_kreativ_raznye_cveta_1920x1200.jpg);
+    background-size: cover;
+}
+
+.login {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    background-color: #eee;
+    width: 100vw;
+    height: 100vh
+}
+
+@media (max-width: 768px) {
+    body {
+        font-size: 12px;
+    }
+    .navbar-my {
+        border-radius: 0px;
+    }
+}
+
+<!-- snake --> * {
+    font-family: "Lucida Grande";
+}
+
+#gameContainer,
+#pastScores {
+    width: 600px;
+    background-color: white;
+}
+
+.row1 {
+    height: 26px;
+    text-align: center;
+}
+
+.column {
+    border: 1px solid white;
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+}
+
+#startGame {
+    width: 120px;
+    padding: 10px;
+    margin-top: 5px;
+    text-align: center;
+    background-color: black;
+    color: white;
+}
+
+#startGame:hover {
+    color: red;
+    cursor: pointer;
+}
+
+.centerbtn {
+    width: 100%;
+    text-align: center;
+}
+
+.bg-blue {
+    background-color: #052a4a;
+}
